@@ -1,0 +1,19 @@
+{
+    "name": "fooman/essentialcatalog-implementation-m2",
+    "description": "",
+    "version": "1.0.0",
+    "license": "proprietary",
+    "type": "magento2-module",
+    "autoload": {
+        "psr-4": {
+            "Fooman\\EssentialCatalog\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    },
+    "require": {
+        "magento/framework": "^101.0 | ^102.0"
+    },
+    "prefer-stable": true
+}

@@ -1,0 +1,8 @@
+suites:
+  fooman_essentialcatalog-implementation-m2_suite:
+    namespace: Fooman\EssentialCatalog
+    psr4_prefix: Fooman\EssentialCatalog
+    spec_path: tests
+extensions:
+  Fooman\PhpspecMagento2Bootstrap\Extension:
+   magento2_test_root: ""
