@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+  ~ @copyright Copyright (c) 2010 Fooman Limited (http://www.fooman.co.nz)
+  ~
+  ~ For the full copyright and license information, please view the LICENSE
+  ~ file that was distributed with this source code.
+  -->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="cataloginventory">
+            <group id="item_options">
+                <field id="fooman_enable_essential" translate="label" sortOrder="2" type="select" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Restrict Catalog to Essential Products</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Warning: Enabling this setting will override the stock status of all non-essential simple products to out of stock</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
