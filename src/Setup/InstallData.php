@@ -37,7 +37,7 @@ class InstallData implements InstallDataInterface
                 'source' => \Magento\Catalog\Model\Product\Attribute\Source\Boolean::class,
                 'label' => 'Essential Product',
                 'class' => '',
-                'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_STORE,
+                'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
                 'comment' => '',
                 'visible' => true,
                 'required' => false,
