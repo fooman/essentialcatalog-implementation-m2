@@ -2,7 +2,7 @@
     "name": "fooman/essentialcatalog-implementation-m2",
     "description": "Set non-essential products out of stock for your Magento 2.3+ store",
     "version": "100.0.1",
-    "license": "proprietary",
+    "license": "OSL-3.0",
     "type": "magento2-module",
     "autoload": {
         "psr-4": {
