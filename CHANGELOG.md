@@ -1,5 +1,7 @@
 # Change Log
 
+## [Unreleased]
+
 ## [100.0.1] - 2020-04-03
 ### Changed
 - License to OSL 3.0
