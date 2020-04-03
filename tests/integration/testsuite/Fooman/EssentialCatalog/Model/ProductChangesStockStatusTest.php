@@ -95,6 +95,18 @@ class ProductChangesStockStatusTest extends BaseUnitTestCase
 
     /**
      * @magentoDataFixture Magento/Catalog/_files/product_virtual.php
+     * @magentoConfigFixture current_store cataloginventory/item_options/fooman_enable_essential 0
+     */
+    public function testVirtualProductsAreSellableWhenDisabled()
+    {
+        $this->assertEquals(
+            StockStatusInterface::STATUS_IN_STOCK,
+            $this->stockRegistry->getStockStatus(21)->getStockStatus()
+        );
+    }
+
+    /**
+     * @magentoDataFixture Magento/Catalog/_files/product_virtual.php
      * @magentoConfigFixture current_store cataloginventory/item_options/fooman_enable_essential 1
      */
     public function testVirtualProductsAreSellableWhenEnabled()
