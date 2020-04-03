@@ -81,7 +81,7 @@ class ProductChangesStockStatusTest extends BaseUnitTestCase
             $this->stockRegistry->getStockStatus(1)->getStockStatus()
         );
 
-        $productRegistry = Bootstrap::getObjectManager()->get(StockRegistryInterface::class);
+        $productRegistry = Bootstrap::getObjectManager()->get(ProductRepositoryInterface::class);
 
         $product = $productRegistry->getById(1);
         $product->setFoomanIsProductEssential(false);
