@@ -63,7 +63,7 @@ class IsProductEssentialCondition implements IsProductSalableInterface
             $isEssential = $this->productResource->getAttributeRawValue(
                 $productId,
                 self::ESSENTIAL_PRODUCT_ATTR,
-                $this->storeManager->getStore()
+                $this->storeManager->getStore()->getId()
             );
             $this->cachedResultBySku[$sku] = $this->determineResult($isEssential);
         }
