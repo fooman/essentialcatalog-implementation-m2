@@ -1,6 +1,6 @@
 # Change Log
 
-## [Unreleased]
+## [100.0.2] - 2020-04-03
 ### Added
 - Added essential product setting to Bundle and Configurable Products
 
