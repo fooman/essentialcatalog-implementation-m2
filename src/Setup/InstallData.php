@@ -27,6 +27,13 @@ class InstallData implements InstallDataInterface
         /** @var \Magento\Eav\Setup\EavSetup $eavSetup */
         $eavSetup = $this->eavSetupFactory->create(['setup' => $installer]);
 
+        $productTypes = [
+            \Magento\Catalog\Model\Product\Type::TYPE_SIMPLE,
+            \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE,
+            \Magento\Catalog\Model\Product\Type::TYPE_BUNDLE
+        ];
+        $productTypes = join(',', $productTypes);
+
         $eavSetup->addAttribute(
             \Magento\Catalog\Model\Product::ENTITY,
             IsProductEssentialCondition::ESSENTIAL_PRODUCT_ATTR,
@@ -47,7 +54,7 @@ class InstallData implements InstallDataInterface
                 'comparable' => false,
                 'unique' => false,
                 'used_in_product_listing' => true,
-                'apply_to' => \Magento\Catalog\Model\Product\Type::TYPE_SIMPLE,
+                'apply_to' => $productTypes,
             ]
         );
     }
