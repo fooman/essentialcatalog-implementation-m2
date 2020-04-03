@@ -58,31 +58,31 @@ class ProductChangesStockStatusTest extends BaseUnitTestCase
     }
 
     /**
-     * @magentoDataFixture Magento/Catalog/_files/product_without_options_with_stock_data.php
+     * @magentoDataFixture Fooman/EssentialCatalog/_files/default_product.php
      * @magentoConfigFixture current_store cataloginventory/item_options/fooman_enable_essential 0
      */
     public function testDefaultProductsAreSellableWhenDisabled()
     {
         $this->assertEquals(
             StockStatusInterface::STATUS_IN_STOCK,
-            $this->stockRegistry->getStockStatus(1)->getStockStatus()
+            $this->stockRegistry->getStockStatus(156)->getStockStatus()
         );
     }
 
     /**
-     * @magentoDataFixture Magento/Catalog/_files/product_without_options_with_stock_data.php
+     * @magentoDataFixture Fooman/EssentialCatalog/_files/default_product.php
      * @magentoConfigFixture current_store cataloginventory/item_options/fooman_enable_essential 1
      */
     public function testDefaultProductsWhenEnabled()
     {
         $this->assertEquals(
             StockStatusInterface::STATUS_IN_STOCK,
-            $this->stockRegistry->getStockStatus(1)->getStockStatus()
+            $this->stockRegistry->getStockStatus(156)->getStockStatus()
         );
 
         $productRegistry = Bootstrap::getObjectManager()->get(ProductRepositoryInterface::class);
         $stockRegistryStorage = Bootstrap::getObjectManager()->get(StockRegistryStorage::class);
-        $product = $productRegistry->getById(1);
+        $product = $productRegistry->getById(156);
         $product->setFoomanIsProductEssential(0);
         $productRegistry->save($product);
         $stockRegistryStorage->removeStockStatus(1);
