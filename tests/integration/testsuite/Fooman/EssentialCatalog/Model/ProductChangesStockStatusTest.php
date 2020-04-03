@@ -85,7 +85,7 @@ class ProductChangesStockStatusTest extends BaseUnitTestCase
         $product = $productRegistry->getById(156);
         $product->setFoomanIsProductEssential(0);
         $productRegistry->save($product);
-        $stockRegistryStorage->removeStockStatus(1);
+        $stockRegistryStorage->removeStockStatus(156);
 
         $condition = Bootstrap::getObjectManager()->get(IsProductEssentialCondition::class);
         $condition->unsetCachedResult($product->getSku());
