@@ -3,6 +3,7 @@
 namespace Fooman\EssentialCatalog\Model;
 
 use Magento\Catalog\Api\ProductRepositoryInterface;
+use Magento\CatalogInventory\Model\StockRegistryStorage;
 use Magento\TestFramework\Helper\Bootstrap;
 use Fooman\PhpunitBridge\BaseUnitTestCase;
 use Magento\CatalogInventory\Api\StockRegistryInterface;
@@ -82,10 +83,11 @@ class ProductChangesStockStatusTest extends BaseUnitTestCase
         );
 
         $productRegistry = Bootstrap::getObjectManager()->get(ProductRepositoryInterface::class);
-
+        $stockRegistryStorage = Bootstrap::getObjectManager()->get(StockRegistryStorage::class);
         $product = $productRegistry->getById(1);
         $product->setFoomanIsProductEssential(false);
         $productRegistry->save($product);
+        $stockRegistryStorage->removeStockStatus(1);
 
         $this->assertEquals(
             StockStatusInterface::STATUS_OUT_OF_STOCK,
