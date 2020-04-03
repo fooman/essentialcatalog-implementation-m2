@@ -92,7 +92,7 @@ class ProductChangesStockStatusTest extends BaseUnitTestCase
 
         $this->assertEquals(
             StockStatusInterface::STATUS_OUT_OF_STOCK,
-            $this->stockRegistry->getStockStatus(1)->getStockStatus()
+            $this->stockRegistry->getStockStatus(156)->getStockStatus()
         );
     }
 
