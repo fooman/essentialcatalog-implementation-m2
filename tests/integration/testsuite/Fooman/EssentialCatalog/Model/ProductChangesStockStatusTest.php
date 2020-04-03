@@ -5,18 +5,21 @@ namespace Fooman\EssentialCatalog\Model;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\TestFramework\Helper\Bootstrap;
 use Fooman\PhpunitBridge\BaseUnitTestCase;
+use Magento\CatalogInventory\Api\StockRegistryInterface;
+use Magento\CatalogInventory\Api\Data\StockStatusInterface;
 
 /**
  * @magentoAppArea frontend
  */
 class ProductChangesStockStatusTest extends BaseUnitTestCase
 {
-    private $productRepository;
+
+    private $stockRegistry;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->productRepository = Bootstrap::getObjectManager()->get(ProductRepositoryInterface::class);
+        $this->stockRegistry = Bootstrap::getObjectManager()->get(StockRegistryInterface::class);
     }
 
     /**
@@ -25,8 +28,10 @@ class ProductChangesStockStatusTest extends BaseUnitTestCase
      */
     public function testNonEssentialProductsAreSellableWhenDisabled()
     {
-        $product = $this->productRepository->getById(2);
-        $this->assertTrue($product->isSalable());
+        $this->assertEquals(
+            StockStatusInterface::STATUS_IN_STOCK,
+            $this->stockRegistry->getStockStatus(2)->getStockStatus()
+        );
     }
 
     /**
@@ -35,8 +40,10 @@ class ProductChangesStockStatusTest extends BaseUnitTestCase
      */
     public function testNonEssentialProductsAreNotSellableWhenEnabled()
     {
-        $product = $this->productRepository->getById(2);
-        $this->assertFalse($product->isSalable());
+        $this->assertEquals(
+            StockStatusInterface::STATUS_OUT_OF_STOCK,
+            $this->stockRegistry->getStockStatus(2)->getStockStatus()
+        );
     }
 
     /**
@@ -45,28 +52,34 @@ class ProductChangesStockStatusTest extends BaseUnitTestCase
      */
     public function testEssentialProductsAreStillSellableWhenEnabled()
     {
-        $product = $this->productRepository->getById(1);
-        $this->assertTrue($product->isSalable());
+        $this->assertEquals(
+            StockStatusInterface::STATUS_IN_STOCK,
+            $this->stockRegistry->getStockStatus(1)->getStockStatus()
+        );
     }
 
     /**
-     * @magentoDataFixture Magento/Catalog/_files/product_without_options.php
+     * @magentoDataFixture Magento/Catalog/_files/product_without_options_with_stock_data.php
      * @magentoConfigFixture current_store cataloginventory/item_options/fooman_enable_essential 0
      */
     public function testDefaultProductsAreSellableWhenDisabled()
     {
-        $product = $this->productRepository->getById(2);
-        $this->assertTrue($product->isSalable());
+        $this->assertEquals(
+            StockStatusInterface::STATUS_IN_STOCK,
+            $this->stockRegistry->getStockStatus(1)->getStockStatus()
+        );
     }
 
     /**
-     * @magentoDataFixture Magento/Catalog/_files/product_without_options.php
+     * @magentoDataFixture Magento/Catalog/_files/product_without_options_with_stock_data.php
      * @magentoConfigFixture current_store cataloginventory/item_options/fooman_enable_essential 1
      */
     public function testDefaultProductsAreNotSellableWhenEnabled()
     {
-        $product = $this->productRepository->getById(2);
-        $this->assertFalse($product->isSalable());
+        $this->assertEquals(
+            StockStatusInterface::STATUS_OUT_OF_STOCK,
+            $this->stockRegistry->getStockStatus(1)->getStockStatus()
+        );
     }
 
     /**
@@ -75,7 +88,9 @@ class ProductChangesStockStatusTest extends BaseUnitTestCase
      */
     public function testVirtualProductsAreSellableWhenEnabled()
     {
-        $product = $this->productRepository->getById(21);
-        $this->assertTrue($product->isSalable());
+        $this->assertEquals(
+            StockStatusInterface::STATUS_IN_STOCK,
+            $this->stockRegistry->getStockStatus(21)->getStockStatus()
+        );
     }
 }
