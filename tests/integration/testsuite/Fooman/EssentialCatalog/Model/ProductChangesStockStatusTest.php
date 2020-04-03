@@ -8,10 +8,8 @@ use Magento\TestFramework\Helper\Bootstrap;
 use Fooman\PhpunitBridge\BaseUnitTestCase;
 use Magento\CatalogInventory\Api\StockRegistryInterface;
 use Magento\CatalogInventory\Api\Data\StockStatusInterface;
+use Magento\Catalog\Model\Product;
 
-/**
- * @magentoAppArea frontend
- */
 class ProductChangesStockStatusTest extends BaseUnitTestCase
 {
 
@@ -31,7 +29,7 @@ class ProductChangesStockStatusTest extends BaseUnitTestCase
     {
         $this->assertEquals(
             StockStatusInterface::STATUS_IN_STOCK,
-            $this->stockRegistry->getStockStatus(2)->getStockStatus()
+            $this->stockRegistry->getStockStatus(155)->getStockStatus()
         );
     }
 
@@ -43,7 +41,7 @@ class ProductChangesStockStatusTest extends BaseUnitTestCase
     {
         $this->assertEquals(
             StockStatusInterface::STATUS_OUT_OF_STOCK,
-            $this->stockRegistry->getStockStatus(2)->getStockStatus()
+            $this->stockRegistry->getStockStatus(155)->getStockStatus()
         );
     }
 
@@ -55,7 +53,7 @@ class ProductChangesStockStatusTest extends BaseUnitTestCase
     {
         $this->assertEquals(
             StockStatusInterface::STATUS_IN_STOCK,
-            $this->stockRegistry->getStockStatus(1)->getStockStatus()
+            $this->stockRegistry->getStockStatus(154)->getStockStatus()
         );
     }
 
@@ -85,9 +83,12 @@ class ProductChangesStockStatusTest extends BaseUnitTestCase
         $productRegistry = Bootstrap::getObjectManager()->get(ProductRepositoryInterface::class);
         $stockRegistryStorage = Bootstrap::getObjectManager()->get(StockRegistryStorage::class);
         $product = $productRegistry->getById(1);
-        $product->setFoomanIsProductEssential(false);
+        $product->setFoomanIsProductEssential(0);
         $productRegistry->save($product);
         $stockRegistryStorage->removeStockStatus(1);
+
+        $condition = Bootstrap::getObjectManager()->get(IsProductEssentialCondition::class);
+        $condition->unsetCachedResult($product->getSku());
 
         $this->assertEquals(
             StockStatusInterface::STATUS_OUT_OF_STOCK,

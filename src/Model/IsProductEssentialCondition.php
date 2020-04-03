@@ -65,8 +65,26 @@ class IsProductEssentialCondition implements IsProductSalableInterface
                 self::ESSENTIAL_PRODUCT_ATTR,
                 $this->storeManager->getStore()
             );
-            $this->cachedResultBySku[$sku] = ($isEssential == Boolean::VALUE_USE_CONFIG) ? true : (bool)$isEssential;
+            $this->cachedResultBySku[$sku] = $this->determineResult($isEssential);
         }
         return $this->cachedResultBySku[$sku];
+    }
+
+    public function unsetCachedResult($sku)
+    {
+        if (isset($this->cachedResultBySku[$sku])) {
+            unset($this->cachedResultBySku[$sku]);
+        }
+    }
+
+    private function determineResult($input)
+    {
+        if (is_array($input)) {
+            return true;
+        }
+        if ($input == Boolean::VALUE_USE_CONFIG) {
+            return true;
+        }
+        return (bool)$input;
     }
 }

@@ -8,11 +8,11 @@ use Magento\TestFramework\Helper\Bootstrap;
 $product = Bootstrap::getObjectManager()->create(Product::class);
 $product
     ->setTypeId('simple')
-    ->setId(2)
+    ->setId(155)
     ->setAttributeSetId(4)
     ->setWebsiteIds([1])
     ->setName('Simple Second Product Without Custom Options')
-    ->setSku('simple2')
+    ->setSku('non-essential')
     ->setPrice(10)
     ->setMetaTitle('meta title')
     ->setMetaKeyword('meta keyword')
@@ -27,5 +27,5 @@ $product
             'is_in_stock'               => 1,
         ]
     )
-    ->setFoomanIsProductEssential(false)
+    ->setFoomanIsProductEssential(0)
     ->save();
