@@ -5,7 +5,7 @@ namespace Fooman\EssentialCatalog\Controller\Adminhtml;
 class AttributeIsShowingOnProductTest extends \Magento\TestFramework\TestCase\AbstractBackendController
 {
     /**
-     * @magentoDataFixture Magento/Catalog/_files/product_without_options_with_stock_data.php
+     * @magentoDataFixture Magento/Catalog/_files/product_without_options.php
      * @magentoAppArea adminhtml
      */
     public function testIsEssentialDropdownIsShowing()
