@@ -2,6 +2,7 @@
 
 namespace Fooman\EssentialCatalog\Model;
 
+use Magento\Catalog\Model\Product\Attribute\Source\Boolean;
 use Magento\InventoryCatalogApi\Model\GetProductIdsBySkusInterface;
 use Magento\InventorySalesApi\Api\IsProductSalableInterface;
 
@@ -64,7 +65,7 @@ class IsProductEssentialCondition implements IsProductSalableInterface
                 self::ESSENTIAL_PRODUCT_ATTR,
                 $this->storeManager->getStore()
             );
-            $this->cachedResultBySku[$sku] = ($isEssential === null) ? true : (bool)$isEssential;
+            $this->cachedResultBySku[$sku] = ($isEssential == Boolean::VALUE_USE_CONFIG) ? true : (bool)$isEssential;
         }
         return $this->cachedResultBySku[$sku];
     }

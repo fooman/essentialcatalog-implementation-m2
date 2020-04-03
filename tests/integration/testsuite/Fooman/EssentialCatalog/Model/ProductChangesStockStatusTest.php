@@ -74,8 +74,19 @@ class ProductChangesStockStatusTest extends BaseUnitTestCase
      * @magentoDataFixture Magento/Catalog/_files/product_without_options_with_stock_data.php
      * @magentoConfigFixture current_store cataloginventory/item_options/fooman_enable_essential 1
      */
-    public function testDefaultProductsAreNotSellableWhenEnabled()
+    public function testDefaultProductsWhenEnabled()
     {
+        $this->assertEquals(
+            StockStatusInterface::STATUS_IN_STOCK,
+            $this->stockRegistry->getStockStatus(1)->getStockStatus()
+        );
+
+        $productRegistry = Bootstrap::getObjectManager()->get(StockRegistryInterface::class);
+
+        $product = $productRegistry->getById(1);
+        $product->setFoomanIsProductEssential(false);
+        $productRegistry->save($product);
+
         $this->assertEquals(
             StockStatusInterface::STATUS_OUT_OF_STOCK,
             $this->stockRegistry->getStockStatus(1)->getStockStatus()
