@@ -24,5 +24,6 @@
         "fooman/magento2-phpunit-bridge": "^0.7.0"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "abandoned": true
 }
